@@ -1,19 +1,9 @@
 package com.mondee;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Table(name="student")
-@Entity
 public class Student {
-	@Id
-	@Column(name="sid")
+	
 	private int sid;
-	@Column(name="sname")
 	private String sname;
-	@Column(name="smarks")
 	private int smarks;
 	
 	public int getSid() {
@@ -34,8 +24,5 @@ public class Student {
 	public void setSmarks(int smarks) {
 		this.smarks = smarks;
 	}
-	@Override
-    public String toString() {
-        return "Student [id=" + sid + ", Name=" + sname + "marks =" + smarks + "]";
-	}
+
 }
