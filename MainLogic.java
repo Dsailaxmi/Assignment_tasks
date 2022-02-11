@@ -1,55 +1,62 @@
 package com.mondee;
-import org.hibernate.Session;    
-import org.hibernate.SessionFactory;    
-import org.hibernate.Transaction;  
-import org.hibernate.boot.Metadata;  
-import org.hibernate.boot.MetadataSources;  
-import org.hibernate.boot.registry.StandardServiceRegistry;  
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;  
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+
+import com.mondee.*;
+import com.payments.*;
+import com.payment.Cheque;
+import com.payment.CreditCard;
 public class MainLogic {
 
 	public static void main(String[] args) {
-	    StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.xml").build();  
-	    Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();  
-	    SessionFactory factory = meta.getSessionFactoryBuilder().build();  
-	    Session session = factory.openSession();  
-	    Transaction t = session.beginTransaction();
-	    
-	
-	    Student s1=new Student();    
-	    
-	     //Insert Query:
-	    /* s1.setSid(4);    
-	    s1.setSname("vijay");    
-	    s1.setSmarks(900);  */
-	    
-	 
-	   //Select Query:
-	    /*Student x = (Student)session.get(Student.class, 4);
-	    System.out.println("Student Values:");
-	    System.out.println("Get the Student Values  "+"SId-->  "+x.getSid()+"  Sname-->  "+x.getSname()+"  Smarks-->  "+x.getSmarks());
-	    System.out.println("Student updated Values:"); */
-	    
-	    
-        
-       // Update Query:
-	    /* s1 = (Student)session.get(Student.class, 4);
-	    s1.setSname("vijay kumar");    
-	    s1.setSmarks(750); 
-	    session.update(s1); 
-		System.out.println("Updated-"+s1.getSid()+" "+s1.getSname()+" "+s1.getSmarks()); */
 
-	     //Delete Query:
+		Session se = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = se.beginTransaction();
+		
+		
+		CreditCard obj = new CreditCard();
+		obj.setPaymentId(101);
+		obj.setAmount(24900);
+		obj.setCardType("MASTER");
+		se.save(obj);
 
-	     s1 = (Student)session.get(Student.class, 0);
-	      //System.out.println("Student deleted Values:"); 
-		  session.delete(s1);
-	     System.out.println("Deleted-"+s1.getSid()+" "+s1.getSname()+" "+s1.getSmarks());
-	    session.save(s1);  
-	    t.commit();  
-		session.close();
+		
+		Cheque obj1 = new Cheque();
+		obj1.setPaymentId(102);
+		obj1.setAmount(24900);
+		obj1.setChequeType("VISA");
+		se.save(obj1);
+		
+		CreditCards objs = new CreditCards();
+		objs.setPaymentsId(101);
+		objs.setCardName("MASTER");
+		se.save(objs);
+		
+		Cheques objes = new Cheques();
+		objes.setPaymentsId(102);
+		objes.setChequeName("SBI cheque");
+		se.save(objes);
+		
+		Developer obj2 = new Developer();
+		obj2.setEid(101);
+		obj2.setName("sailaxmi");
+		obj2.setAddress("kmm");
+		se.save(obj2); 
+		
+		
+		
+		
+		tx.commit();
+		se.close();
+		
+		
 
 	}
-
 }
