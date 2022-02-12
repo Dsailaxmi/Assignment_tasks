@@ -31,17 +31,9 @@ public class HibernateUtil {
                 settings.put(Environment.HBM2DDL_AUTO, "create");
                 configuration.setProperties(settings);
 
-                configuration.addAnnotatedClass(Employee.class);
-                configuration.addAnnotatedClass(Developer.class);
+                configuration.addAnnotatedClass(Students.class);
+                configuration.addAnnotatedClass(Branch.class);
                 
-                
-                configuration.addAnnotatedClass(com.payment.Payment.class);
-                configuration.addAnnotatedClass(com.payment.CreditCard.class);
-                configuration.addAnnotatedClass(com.payment.Cheque.class);
-                
-                configuration.addAnnotatedClass(com.payments.payments.class);
-                configuration.addAnnotatedClass(com.payments.CreditCards.class);
-                configuration.addAnnotatedClass(com.payments.Cheques.class);
 
                 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
